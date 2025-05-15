@@ -41,6 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <h4>${name}</h4>
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
+          <p><strong>Location:</strong> ${details.location || 'TBD'}</p>
+          <p><strong>Event Type:</strong> ${details.event_type || 'single'}</p>
+          <p><strong>Recurrence:</strong> ${details.recurrence || 'none'}</p>
+          <p><strong>Event Dates:</strong> ${(details.event_dates || []).join(', ')}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
           <div class="participants-container">
             ${participantsHTML}
