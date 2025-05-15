@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <canvas id="branch-bg"></canvas>
     <header>
+      <img src="https://octodex.github.com/images/daftpunktocat-thomas.gif" alt="School Mascot" style="height:80px;vertical-align:middle;margin-right:10px;">
       <h1>Mergington High School</h1>
       <h2>Extracurricular Activities</h2>
+      <img src="https://octodex.github.com/images/daftpunktocat-guy.gif" alt="School Mascot" style="height:80px;vertical-align:middle;margin-left:10px;">
     </header>
 
     <main>
@@ -46,5 +49,35 @@
     </footer>
 
     <script src="app.js"></script>
+    <script>
+      // Animated Git-style branch lines
+      const canvas = document.getElementById('branch-bg');
+      const ctx = canvas.getContext('2d');
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      // Simple animated branch lines
+      let t = 0;
+      function drawBranches() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#bfff00';
+        ctx.lineWidth = 2;
+        for (let i = 0; i < 8; i++) {
+          ctx.beginPath();
+          let y = 100 + i * 80 + 20 * Math.sin(t/20 + i);
+          ctx.moveTo(0, y);
+          for (let x = 0; x < canvas.width; x += 40) {
+            ctx.lineTo(x, y + 20 * Math.sin((x + t) / 60 + i));
+          }
+          ctx.stroke();
+        }
+        t += 1;
+        requestAnimationFrame(drawBranches);
+      }
+      drawBranches();
+    </script>
   </body>
 </html>
