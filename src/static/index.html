@@ -75,9 +75,31 @@
           ctx.stroke();
         }
         t += 1;
-        requestAnimationFrame(drawBranches);
+        animationFrameId = requestAnimationFrame(drawBranches);
       }
-      drawBranches();
+
+      function startAnimation() {
+        if (!animationFrameId) {
+          animationFrameId = requestAnimationFrame(drawBranches);
+        }
+      }
+
+      function stopAnimation() {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      });
+
+      startAnimation();
     </script>
   </body>
 </html>
